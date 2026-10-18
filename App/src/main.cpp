@@ -3,6 +3,7 @@
 #include <memory>
 #include "Math/Types.hpp"
 #include "Elements/Resistor.hpp"
+#include "Elements/VoltageSource.hpp"
 
 int main() {
 	
@@ -20,11 +21,13 @@ int main() {
 
 	std::unique_ptr<Resistor> r2 =
 		std::make_unique<Resistor>(2, 0, 100.0);
-
 	
+	std::unique_ptr<VoltageSource> i1 =
+		std::make_unique<VoltageSource>(1, 10.0);
+		
 	elements.push_back(std::move(r1));
 	elements.push_back(std::move(r2));
-	I.add(1, 1.0);
+	elements.push_back(std::move(i1));
 
 	for (auto& element : elements) 
 		element->stampToEquation(G, I, 0.0);
