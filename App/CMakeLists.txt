@@ -9,4 +9,4 @@ include_directories(ext)
 
 add_executable(XamSpice
     src/main.cpp
-)
+ "src/Simulation/Circuit.cpp"  "src/Utils/NetlistParser.cpp")
