@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include "Elements/Element.hpp"
+#include "SimulationStructs.hpp"
 
 class Circuit {
 
@@ -17,4 +18,5 @@ public:
 	void addElement(std::unique_ptr<Element> element);
 	
 	Spice::Vector runSimulation(double dt = 0.0);
+	std::vector<TransientResult> runTransient(double stopTime, double dt);
 };

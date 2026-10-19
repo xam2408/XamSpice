@@ -4,18 +4,25 @@
 
 class CurrentSource : public Element {
 private:
-	int node;
+	int nodeA;
+	int nodeB;
 	double current;
 public:
+
+	CurrentSource(int nA, int nB, double i)
+		: nodeA(nA), nodeB(nB), current(i) {
+	}
+
 	CurrentSource(int n, double i) 
-		: node(n), current(i) {}
+		: nodeA(n),nodeB(0), current(i) {}
 
 	void stampToEquation(
-		Spice::Matrix& G, Spice::Vector& I,
-		double dt = 0.0
+			Spice::Matrix& G, Spice::Vector& I,
+			double dt = 0.0
 	) override {
 
-		I.add(node, current);
+		I.add(nodeA, -current);
+		I.add(nodeB, current);
 	}
 
 };

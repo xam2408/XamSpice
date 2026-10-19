@@ -7,12 +7,13 @@ private:
 	int node;
 	double voltage;
 	double eps = std::numeric_limits<double>::epsilon();
+	//double eps = 1e-3;
 public:
 	VoltageSource(int n, int v) : node(n), voltage(v) {}
 
 	void stampToEquation(
-		Spice::Matrix& G, Spice::Vector& I,
-		double dt) override {
+			Spice::Matrix& G, Spice::Vector& I,
+			double dt) override {
 
 		double internalResistor = eps;
 		double conductance = 1.0 / internalResistor;

@@ -11,4 +11,6 @@ public:
 		Spice::Vector& I, 
 		double deltaTime = 0.0
 	) = 0;
+
+	virtual void updateState(const Spice::Vector& V, double dt) {}
 };
