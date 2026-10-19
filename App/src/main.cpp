@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
 	NetlistParser parser;
 	
-	parser.readNetlistToString("C:/Users/PC/Desktop/circuit.txt");
+	parser.readNetlistToString("C:/Users/PC/jpo/XamSpice/App/circuit.txt");
 	std::cout << "NETLIST LENGTH: " << parser.netlistText.size() << "\n";
 	parser.ParseNetlist(parser.netlistText);
 
@@ -26,8 +26,8 @@ int main(int argc, char *argv[]) {
 
 	parser.AddElements(parser.netlistToParse, circuit);
 
-	const double dt = 0.0001;
-	double totalTime = 0.01;
+	const double dt = 0.00005;
+	double totalTime = 0.05;
 
 	std::vector<TransientResult> results = circuit.runTransient(totalTime, dt);
 	
@@ -42,7 +42,8 @@ int main(int argc, char *argv[]) {
 
 	GraphWindow window;
 
-	window.SetVoltageData(results, 2);
+	window.SetVoltageData(results, 1);
+	window.SetVoltageData(results, 3);
 
 	window.show();
 
