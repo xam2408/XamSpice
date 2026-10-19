@@ -7,38 +7,33 @@
 #include "Elements/Capacitor.hpp"
 #include "Circuit.hpp"
 #include "SimulationStructs.hpp"
-
+#include "Utils/NetlistParser.hpp"
 
 int main() {
 	
-
-	const int nodes{ 2 };
-
-	std::unique_ptr<Resistor> r1 = 
-		std::make_unique<Resistor>(1, 2, 1000.0);
-
-	std::unique_ptr<Capacitor> c1 =
-		std::make_unique<Capacitor>(2, 0, 1e-6, 0.0, 0.0);
+	NetlistParser parser;
 	
-	std::unique_ptr<VoltageSource> i1 =
-		std::make_unique<VoltageSource>(1, 5.0);
+	parser.readNetlistToString("C:/Users/PC/Desktop/circuit.txt");
+	std::cout << "NETLIST LENGTH: " << parser.netlistText.size() << "\n";
+	parser.ParseNetlist(parser.netlistText);
 
-	Circuit circuit(nodes);
-	circuit.addElement(std::move(r1));
-	circuit.addElement(std::move(c1));
-	circuit.addElement(std::move(i1));
+	Circuit circuit(parser.GetNodeCount());
 
-	std::vector<TransientResult> voltages = circuit.runTransient(0.01, 0.0001);
+	parser.AddElements(parser.netlistToParse, circuit);
 
-	for (const auto& step : voltages) {
-		double time = step.time;
-		double v1 = step.voltages.getVoltage(1);
-		double v2 = step.voltages.getVoltage(2);
+	const double dt = 0.0001;
+	double totalTime = 0.01;
 
-		std::cout << time << "\t\t" << v1 << "\t\t" << v2 << "\n";
+	std::vector<TransientResult> results = circuit.runTransient(totalTime, dt);
+	
+	for (const auto& step : results) {
+		std::cout << step.time << "\t\t";
 
+		for (size_t node = 0; node <= parser.GetNodeCount(); ++node) {
+			std::cout << step.voltages.getVoltage(node) << "\t\t";
+		}
+		std::cout << "\n";
 	}
-
 
 	return 0;
 }

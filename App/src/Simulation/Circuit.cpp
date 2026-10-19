@@ -3,8 +3,6 @@
 #include "Circuit.hpp"
 #include "SimulationStructs.hpp"
 
-Circuit::Circuit(int n) : nodes(n) {}
-
 void Circuit::addElement(std::unique_ptr<Element> element) {
 	elements.push_back(std::move(element));
 }

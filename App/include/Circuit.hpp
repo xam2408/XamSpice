@@ -13,7 +13,7 @@ private:
 
 public:
 
-	Circuit(int nodes);
+	Circuit(int n) : nodes(n) {}
 	
 	void addElement(std::unique_ptr<Element> element);
 	

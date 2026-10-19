@@ -10,7 +10,7 @@ private:
 	double previousVoltage = 0.0;
 	double previousCurrent = 0.0;
 public:
-	Capacitor(int a, int b, double c, double prevV, double prevC) :
+	Capacitor(int a, int b, double c, double prevV = 0.0, double prevC = 0.0) :
 		nodeA(a), nodeB(b), capacitance(c), previousVoltage(prevV), previousCurrent(prevC) { }
 
 	void stampToEquation(

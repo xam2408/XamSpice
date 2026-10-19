@@ -21,8 +21,8 @@ public:
 			double dt = 0.0
 	) override {
 
-		I.add(nodeA, -current);
-		I.add(nodeB, current);
+		I.add(nodeA, current);
+		I.add(nodeB, -current);
 	}
 
 };
