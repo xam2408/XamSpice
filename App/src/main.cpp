@@ -1,3 +1,4 @@
+#include <QApplication>
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -8,9 +9,13 @@
 #include "Circuit.hpp"
 #include "SimulationStructs.hpp"
 #include "Utils/NetlistParser.hpp"
+#include "UI/GraphWindow.hpp"
 
-int main() {
+
+int main(int argc, char *argv[]) {
 	
+	QApplication app(argc, argv);
+
 	NetlistParser parser;
 	
 	parser.readNetlistToString("C:/Users/PC/Desktop/circuit.txt");
@@ -35,5 +40,11 @@ int main() {
 		std::cout << "\n";
 	}
 
-	return 0;
+	GraphWindow window;
+
+	window.SetVoltageData(results, 2);
+
+	window.show();
+
+	return app.exec();
 }
