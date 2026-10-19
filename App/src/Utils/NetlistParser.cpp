@@ -72,6 +72,9 @@ void NetlistParser::AddElements(const std::vector<NetlistItem>& items, Circuit& 
 			circuit.addElement(
 				std::make_unique<CurrentSource>(netA, netB, value));
 			break;
+		case 'L':
+			circuit.addElement(
+				std::make_unique<Inductor>(netA, netB, value));
 		default:
 			break;
 		}
