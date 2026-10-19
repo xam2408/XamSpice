@@ -4,17 +4,11 @@
 #include "Math/Types.hpp"
 #include "Elements/Resistor.hpp"
 #include "Elements/VoltageSource.hpp"
+#include "Circuit.hpp"
 
 int main() {
 	
 	const int nodes{ 2 };
-
-	Spice::Matrix G(nodes, nodes);	//conductance Matrix
-	Spice::Vector I(nodes);			//current Vector
-	G.setZero();
-	I.setZero();
-
-	std::vector<std::unique_ptr<Element>> elements;
 
 	std::unique_ptr<Resistor> r1 = 
 		std::make_unique<Resistor>(1, 2, 100.0);
@@ -24,15 +18,14 @@ int main() {
 	
 	std::unique_ptr<VoltageSource> i1 =
 		std::make_unique<VoltageSource>(1, 10.0);
-		
-	elements.push_back(std::move(r1));
-	elements.push_back(std::move(r2));
-	elements.push_back(std::move(i1));
 
-	for (auto& element : elements) 
-		element->stampToEquation(G, I, 0.0);
+	Circuit circuit(nodes);
+	circuit.addElement(std::move(r1));
+	circuit.addElement(std::move(r2));
+	circuit.addElement(std::move(i1));
 
-	Spice::Vector voltages = I.solve(G);
+
+	Spice::Vector voltages = circuit.runSimulation();
 
 	std::cout << "Node 1 voltage: " << voltages.getVoltage(1) << "\n";
 	std::cout << "Node 2 voltage: " << voltages.getVoltage(2) << "\n";
