@@ -1,4 +1,4 @@
-! Simple RC circuit
+! Simple RC circuit command
 V1 1 0 5.0
 R1 1 2 10.0
 L1 2 3 0.05

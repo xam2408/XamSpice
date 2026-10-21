@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 	parser.AddElements(parser.netlistToParse, circuit);
 
 	const double dt = 0.00005;
-	double totalTime = 0.05;
+	double totalTime = 0.012;
 
 	std::vector<TransientResult> results = circuit.runTransient(totalTime, dt);
 	
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 	GraphWindow window;
 
 	window.SetVoltageData(results, 1);
-	window.SetVoltageData(results, 3);
+	window.SetVoltageData(results, 2);
 
 	window.show();
 
